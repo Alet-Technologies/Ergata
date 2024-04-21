@@ -11,10 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a30ccd730bddee1fa7db10e5ad382a0e6d05f77b
 dev_dependencies:
   flutter_test:
     sdk: flutter
