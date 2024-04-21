@@ -1,10 +1,8 @@
 // ignore_for_file: unused_local_variable
 
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ergata/models/patientModel.dart';
+import 'package:ergata/models/patient_model.dart';
 import 'package:ergata/repository/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
