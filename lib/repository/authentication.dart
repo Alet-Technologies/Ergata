@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ergata/entities/patiententity.dart';
-import 'package:ergata/entities/therapistEntity.dart';
+import 'package:ergata/entities/therapistentity.dart';
 import 'package:ergata/models/therapist_model.dart';
 import 'package:ergata/models/patient_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -114,9 +114,18 @@ class AuthRepository {
     }
   }
 
-  Future<MyTherapist> getUser(String myUserId) async {
+  Future<MyPatient> getPatient(String myPatientId) async {
     try {
-      return therapistCollection.doc(myUserId).get().then((value) =>
+      return patientsCollection.doc(myPatientId).get().then((value) =>
+          MyPatient.fromEntity(PatientEntity.fromDocument(value.data()!)));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<MyTherapist> getTherapist(String myTherapistId) async {
+    try {
+      return therapistCollection.doc(myTherapistId).get().then((value) =>
           MyTherapist.fromEntity(TherapistEntity.fromDocument(value.data()!)));
     } catch (e) {
       rethrow;
