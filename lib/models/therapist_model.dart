@@ -1,26 +1,28 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:equatable/equatable.dart';
-// import 'package:shop_app/entities/user_entity.dart';
+import 'package:ergata/entities/therapistEntity.dart';
 
 class MyTherapist extends Equatable {
   final String id;
   final String phone;
-  final String fullname;
+  final String fullName;
   final String photo;
   final double rating;
   final String category;
-  final String licence;
+  final String license;
   final double price;
   final String description;
   final bool verified;
 
   const MyTherapist({
     required this.id,
-    required this.fullname,
+    required this.fullName,
     required this.phone,
     required this.photo,
     required this.category,
     required this.description,
-    required this.licence,
+    required this.license,
     required this.price,
     required this.rating,
     required this.verified,
@@ -29,12 +31,12 @@ class MyTherapist extends Equatable {
   toJson() {
     return {
       'id': id,
-      'fullname': fullname,
+      'fullName': fullName,
       'phone': phone,
       'photo': photo,
       'category': category,
       'description': description,
-      'licence': licence,
+      'license': license,
       'price': price,
       'rating': rating,
       'verified': verified,
@@ -43,12 +45,12 @@ class MyTherapist extends Equatable {
 
   static final empty = MyTherapist(
     id: "",
-    fullname: "",
+    fullName: "",
     phone: "",
     photo: "",
     category: "",
     description: "",
-    licence: "",
+    license: "",
     price: 0,
     rating: 0,
     verified: false,
@@ -57,10 +59,10 @@ class MyTherapist extends Equatable {
   MyTherapist copyWith({
     String? id,
     String? phone,
-    String? fullname,
+    String? fullName,
     String? photo,
     String? category,
-    String? licence,
+    String? license,
     double? price,
     double? rating,
     String? description,
@@ -68,12 +70,12 @@ class MyTherapist extends Equatable {
   }) {
     return MyTherapist(
       id: id ?? this.id,
-      fullname: fullname ?? this.fullname,
+      fullName: fullName ?? this.fullName,
       phone: phone ?? this.phone,
       photo: photo ?? this.photo,
       category: category ?? this.category,
       description: description ?? this.description,
-      licence: licence ?? this.licence,
+      license: license ?? this.license,
       price: price ?? this.price,
       rating: rating ?? this.rating,
       verified: verified ?? this.verified,
@@ -84,11 +86,11 @@ class MyTherapist extends Equatable {
     return TherapistEntity(
       id: id,
       phone: phone,
-      fullname: fullname,
+      fullName: fullName,
       photo: photo,
       category: category,
       description: description,
-      licence: licence,
+      license: license,
       price: price,
       rating: rating,
       verified: verified,
@@ -98,12 +100,12 @@ class MyTherapist extends Equatable {
   static MyTherapist fromEntity(TherapistEntity entity) {
     return MyTherapist(
       id: entity.id,
-      fullname: entity.fullname,
+      fullName: entity.fullName,
       phone: entity.phone,
       photo: entity.photo,
       category: entity.category,
       description: entity.description,
-      licence: entity.licence,
+      license: entity.license,
       price: entity.price,
       rating: entity.rating,
       verified: entity.verified,
@@ -114,11 +116,11 @@ class MyTherapist extends Equatable {
   List<Object?> get props => [
         id,
         phone,
-        fullname,
+        fullName,
         photo,
         category,
         description,
-        licence,
+        license,
         price,
         rating,
         verified,
