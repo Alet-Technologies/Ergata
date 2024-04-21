@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:equatable/equatable.dart';
-import 'package:ergata/entities/therapistEntity.dart';
+import 'package:ergata/entities/therapistentity.dart';
 
 class MyTherapist extends Equatable {
   final String id;
