@@ -13,8 +13,7 @@ class MyPatient extends Equatable {
     required this.id,
     required this.phone,
     required this.age,
-        required this.gender,
-
+    required this.gender,
     required this.isDiagnosed,
     required this.diagnosedWith,
   });
@@ -24,14 +23,19 @@ class MyPatient extends Equatable {
       'id': id,
       'phone': phone,
       'age': age,
-      'gender':gender,
+      'gender': gender,
       'isDiagnosed': isDiagnosed,
       'diagnosedWith': diagnosedWith
     };
   }
 
   static final empty = MyPatient(
-      id: "", phone: "", age: "",gender:"" ,isDiagnosed: false, diagnosedWith: "");
+      id: "",
+      phone: "",
+      age: "",
+      gender: "",
+      isDiagnosed: false,
+      diagnosedWith: "");
 
   MyPatient copyWith({
     String? id,
@@ -46,7 +50,7 @@ class MyPatient extends Equatable {
         id: id ?? this.id,
         age: age ?? this.age,
         phone: phone ?? this.phone,
-        gender: gender??this.gender,
+        gender: gender ?? this.gender,
         isDiagnosed: isDiagnosed ?? this.isDiagnosed,
         diagnosedWith: diagnosedWith ?? this.diagnosedWith);
   }
