@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthRepository {
   final patientsCollection = FirebaseFirestore.instance.collection("Patients");
   final therapistCollection =
-      FirebaseFirestore.instance.collection("Therapist");
+      FirebaseFirestore.instance.collection("Therapists");
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Stream<User?> get user {
@@ -27,7 +27,7 @@ class AuthRepository {
     await _firebaseAuth
         .verifyPhoneNumber(
       timeout: const Duration(seconds: 120),
-      phoneNumber: "+251$phone",
+      phoneNumber: phone,
       verificationCompleted: (phoneAuthCredential) async {
         return;
       },
@@ -124,6 +124,7 @@ class AuthRepository {
   }
 
   Future<MyTherapist> getTherapist(String myTherapistId) async {
+    print(myTherapistId);
     try {
       return therapistCollection.doc(myTherapistId).get().then((value) =>
           MyTherapist.fromEntity(TherapistEntity.fromDocument(value.data()!)));
@@ -132,13 +133,28 @@ class AuthRepository {
     }
   }
 
-  Future<List<MyTherapist>> getUsers() async {
-    List<MyTherapist> allUsers = [];
+  Future<List<MyTherapist>> getAllTherapists() async {
+    List<MyTherapist> allTherapists = [];
+    try {
+      await therapistCollection.get().then((value) {
+        for (var doc in value.docs) {
+          var therapist =
+              MyTherapist.fromEntity(TherapistEntity.fromDocument(doc.data()));
+          allTherapists.add(therapist);
+        }
+      });
+    } catch (e) {
+      rethrow;
+    }
+    return allTherapists;
+  }
+
+  Future<List<MyPatient>> getAllPatients() async {
+    List<MyPatient> allUsers = [];
     try {
       await patientsCollection.get().then((value) {
         for (var i in value.docs) {
-          var user =
-              MyTherapist.fromEntity(TherapistEntity.fromDocument(i.data()));
+          var user = MyPatient.fromEntity(PatientEntity.fromDocument(i.data()));
           allUsers.add(user);
         }
       });

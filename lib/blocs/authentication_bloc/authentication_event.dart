@@ -9,12 +9,20 @@ sealed class AuthenticationEvent extends Equatable {
 
 final class CheckAuth extends AuthenticationEvent {}
 
-final class SendOTP extends AuthenticationEvent {
+final class SendOTPTherapist extends AuthenticationEvent {
   final String phone;
   final Function errorStep;
   final Function nextStep;
 
-  const SendOTP(this.phone, this.errorStep, this.nextStep);
+  const SendOTPTherapist(this.phone, this.errorStep, this.nextStep);
+}
+
+final class SendOTPPatient extends AuthenticationEvent {
+  final String phone;
+  final Function errorStep;
+  final Function nextStep;
+
+  const SendOTPPatient(this.phone, this.errorStep, this.nextStep);
 }
 
 final class SignInPatient extends AuthenticationEvent {

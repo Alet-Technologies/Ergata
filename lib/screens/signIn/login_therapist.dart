@@ -2,21 +2,21 @@
 
 import 'package:ergata/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:ergata/constants/colors.dart';
-import 'package:ergata/screens/otp/patient/otp_screen_patient.dart';
-import 'package:ergata/screens/signIn/login_therapist.dart';
+import 'package:ergata/screens/otp/therapist/otp_screen_therapist.dart';
+import 'package:ergata/screens/signIn/loginpage.dart';
 import 'package:ergata/service/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginTherapistScreen extends StatefulWidget {
+  const LoginTherapistScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginTherapistScreen> createState() => _LoginTherapistScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginTherapistScreenState extends State<LoginTherapistScreen> {
   final TextEditingController _phoneController = TextEditingController();
 
   @override
@@ -58,14 +58,27 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: <Widget>[
               Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
-                  child: Center(
-                    child: Image.asset(
-                      "assets/images/ergata.png",
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      fit: BoxFit.cover,
-                    ),
-                  )),
+                padding: const EdgeInsets.only(top: 100.0),
+                child: Center(
+                  child: Image.asset(
+                    "assets/images/ergata.png",
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Center(
+                  child: Text(
+                    "Only for therapists",
+                    style: TextStyle(
+                        color: ColorsManager.coralRed,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 18),
+                  ),
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: IntlPhoneField(
@@ -82,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value.number.isNotEmpty) {
                       setState(() {
                         countryCode = value.countryCode;
+                        print(countryCode);
                       });
                       removeError(error: "Phone number not entered");
                     }
@@ -133,12 +147,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       _formKey.currentState!.save();
                       KeyboardUtil.hideKeyboard(context);
                       BlocProvider.of<AuthenticationBloc>(context).add(
-                          SendOTPPatient(countryCode + _phoneController.text,
+                          SendOTPTherapist(countryCode + _phoneController.text,
                               () {
                         Navigator.pop(context);
                       }, () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => OtpScreenPatient(
+                            builder: (context) => OtpScreenTherapist(
                                 phone: countryCode + _phoneController.text)));
                       }));
                     }
@@ -162,23 +176,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(left: 62),
-                      child: Text('Want to work with us? '),
+                      child: Text('Want to find a therapist? '),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 1.0),
                       child: InkWell(
-                        onTap: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginTherapistScreen()));
-                        },
-                        child: const Text(
-                          'Login as a therapist.',
-                          style: TextStyle(fontSize: 14, color: Colors.blue),
-                        ),
-                      ),
+                          onTap: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()));
+                          },
+                          child: const Text(
+                            'Login here.',
+                            style: TextStyle(fontSize: 14, color: Colors.blue),
+                          )),
                     )
                   ],
                 ),

@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 
 class TherapistEntity extends Equatable {
   final String id;
-  final String fullName;
-  final double rating;
   final String phone;
+  final String fullName;
   final String photo;
+  final int rating;
   final String category;
   final String license;
-  final double price;
+  final int price;
   final String description;
   final bool verified;
 
@@ -30,8 +30,8 @@ class TherapistEntity extends Equatable {
       'id': id,
       'fullName': fullName,
       'phone': phone,
-      'age': rating,
-      'gender': photo,
+      'rating': rating,
+      'photo': photo,
       'category': category,
       'license': license,
       'price': price,
@@ -43,13 +43,13 @@ class TherapistEntity extends Equatable {
   static TherapistEntity fromDocument(Map<String, dynamic> doc) {
     return TherapistEntity(
       id: doc['id'] as String,
-      fullName: doc['fullName'] as String,
       phone: doc['phone'] as String,
-      rating: doc['rating'] as double,
+      fullName: doc['fullName'] as String,
       photo: doc['photo'] as String,
+      rating: doc['rating'] as int,
       category: doc['category'] as String,
       license: doc['license'] as String,
-      price: doc['price'] as double,
+      price: doc['price'] as int,
       description: doc['description'] as String,
       verified: doc['verified'] as bool,
     );

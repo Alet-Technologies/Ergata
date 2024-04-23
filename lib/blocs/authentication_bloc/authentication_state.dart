@@ -25,7 +25,7 @@ final class AuthenticationSuccessPatient extends AuthenticationState {
 }
 
 final class AuthenticationSuccessTherapist extends AuthenticationState {
-  final MyPatient therapist;
+  final MyTherapist therapist;
 
   const AuthenticationSuccessTherapist(this.therapist);
 

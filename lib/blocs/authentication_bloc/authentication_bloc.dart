@@ -3,6 +3,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ergata/models/patient_model.dart';
+import 'package:ergata/models/therapist_model.dart';
 import 'package:ergata/repository/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -11,9 +12,10 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc() : super(AuthenticationInitial()) {
-    final AuthRepository authRepository = AuthRepository();
+  final AuthRepository authRepository;
 
+  AuthenticationBloc({required this.authRepository})
+      : super(AuthenticationInitial()) {
     on<CheckAuth>((event, emit) async {
       emit(AuthenticationLoading());
       try {
@@ -29,7 +31,20 @@ class AuthenticationBloc
       }
     });
 
-    on<SendOTP>((event, emit) async {
+    on<SendOTPTherapist>((event, emit) async {
+      emit(AuthenticationLoading());
+      try {
+        await authRepository.sendOtp(
+            phone: event.phone,
+            errorStep: event.errorStep,
+            nextStep: event.nextStep);
+        emit(AuthenticationOtpSent());
+      } catch (e) {
+        emit(AuthenticationFailed(e.toString()));
+      }
+    });
+
+    on<SendOTPPatient>((event, emit) async {
       emit(AuthenticationLoading());
       try {
         await authRepository.sendOtp(

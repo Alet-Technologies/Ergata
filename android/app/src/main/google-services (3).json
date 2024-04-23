@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "179533021868",
+    "project_id": "ergata-71339",
+    "storage_bucket": "ergata-71339.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179533021868:android:01e49a010d6c34a6bf5509",
+        "android_client_info": {
+          "package_name": "com.example.ergata"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLkb_3qoI3ESEx4nDz9QVCYE8oRgV0TbU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

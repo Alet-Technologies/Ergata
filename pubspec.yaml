@@ -4,7 +4,7 @@ publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: ">=3.3.4 <4.0.0"
+  sdk: ">=3.1.5 <4.0.0"
 
 dependencies:
   equatable: ^2.0.5
@@ -17,6 +17,17 @@ dependencies:
   cloud_firestore: ^4.14.0
   firebase_auth: ^4.16.0
   firebase_storage: ^11.1.0
+  flutter_offline: ^3.0.1
+  flutter_screenutil: ^5.9.0
+  font_awesome_flutter: ^10.7.0
+  intl_phone_field: ^3.2.0
+  flutter_profile_picture: ^2.0.0
+  loading_animation_widget: ^1.2.1
+  gap: ^3.0.1
+  dot_navigation_bar: ^1.0.2
+  xid: ^1.1.2
+  http: ^1.1.0
+  timeago: ^3.6.1
 
 dev_dependencies:
   flutter_test:
@@ -26,5 +37,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-assets:
-  - assets
+  assets:
+    - assets/images/

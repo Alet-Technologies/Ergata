@@ -8,10 +8,10 @@ class MyTherapist extends Equatable {
   final String phone;
   final String fullName;
   final String photo;
-  final double rating;
+  final int rating;
   final String category;
   final String license;
-  final double price;
+  final int price;
   final String description;
   final bool verified;
 
@@ -63,8 +63,8 @@ class MyTherapist extends Equatable {
     String? photo,
     String? category,
     String? license,
-    double? price,
-    double? rating,
+    int? price,
+    int? rating,
     String? description,
     bool? verified,
   }) {
