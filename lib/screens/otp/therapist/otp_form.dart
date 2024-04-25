@@ -140,7 +140,8 @@ class _OtpFormState extends State<OtpFormTherapist> {
                     controller: pin1Controller,
                     autofocus: true,
                     obscureText: true,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 20, color: ColorsManager.primaryColor),
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
@@ -160,7 +161,8 @@ class _OtpFormState extends State<OtpFormTherapist> {
                     controller: pin2Controller,
                     focusNode: pin2FocusNode,
                     obscureText: true,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 20, color: ColorsManager.primaryColor),
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
@@ -178,7 +180,8 @@ class _OtpFormState extends State<OtpFormTherapist> {
                     controller: pin3Controller,
                     focusNode: pin3FocusNode,
                     obscureText: true,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 20, color: ColorsManager.primaryColor),
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
@@ -196,7 +199,8 @@ class _OtpFormState extends State<OtpFormTherapist> {
                       controller: pin4Controller,
                       focusNode: pin4FocusNode,
                       obscureText: true,
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(
+                          fontSize: 20, color: ColorsManager.primaryColor),
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
@@ -214,7 +218,8 @@ class _OtpFormState extends State<OtpFormTherapist> {
                       controller: pin5Controller,
                       focusNode: pin5FocusNode,
                       obscureText: true,
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(
+                          fontSize: 20, color: ColorsManager.primaryColor),
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
@@ -232,7 +237,8 @@ class _OtpFormState extends State<OtpFormTherapist> {
                     controller: pin6Controller,
                     focusNode: pin6FocusNode,
                     obscureText: true,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 20, color: ColorsManager.primaryColor),
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(

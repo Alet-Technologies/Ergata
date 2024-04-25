@@ -71,9 +71,9 @@ class AuthenticationBloc
     on<SignInTherapy>((event, emit) async {
       emit(AuthenticationLoading());
       try {
-        final MyPatient patient = await authRepository.therapistLoginWithOtp(
-            otp: event.otp, phone: event.phone);
-        emit(AuthenticationSuccessPatient(patient));
+        final MyTherapist therapist = await authRepository
+            .therapistLoginWithOtp(otp: event.otp, phone: event.phone);
+        emit(AuthenticationSuccessTherapist(therapist));
       } catch (e) {
         emit(AuthenticationFailed(e.toString()));
       }

@@ -38,6 +38,7 @@ class _AppViewState extends State<AppView> {
         }
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +51,6 @@ class _AppViewState extends State<AppView> {
               ),
               const CircularProgressIndicator(
                 color: ColorsManager.primaryColor,
-                backgroundColor: Colors.white,
                 strokeWidth: 2,
               )
             ],

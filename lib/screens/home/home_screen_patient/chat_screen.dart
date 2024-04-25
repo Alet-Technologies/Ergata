@@ -43,38 +43,56 @@ class _ChatScreenState extends State<ChatScreenPatient> {
         elevation: 0,
         toolbarHeight: 0,
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 15,
-          ),
-          StreamBuilder(
-              stream: chatRoomStream,
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  List<DocumentSnapshot> docs = snapshot.data!.docs;
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot ds = docs[index];
-                      return ChatroomTile(
-                          chatRoomId: ds.id,
-                          dateSent: ds["dateSent"],
-                          lastMessage: ds['lastMessage'],
-                          patient: widget.patient);
-                    },
-                    itemCount: snapshot.data.docs.length,
-                    shrinkWrap: true,
-                  );
-                } else {
-                  return Center(
-                      child: LoadingAnimationWidget.staggeredDotsWave(
-                    color: ColorsManager.primaryColor,
-                    size: 50,
-                  ));
-                }
-              }),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            TextFormField(
+              style: const TextStyle(color: Colors.grey),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: const Color.fromARGB(255, 217, 220, 221),
+                hintText: 'Search for Therapist...',
+                hintStyle: TextStyle(color: Colors.grey[600]),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.grey[600],
+                ),
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            StreamBuilder(
+                stream: chatRoomStream,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    List<DocumentSnapshot> docs = snapshot.data!.docs;
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot ds = docs[index];
+                        return ChatroomTile(
+                            chatRoomId: ds.id,
+                            dateSent: ds["dateSent"],
+                            lastMessage: ds['lastMessage'],
+                            patient: widget.patient);
+                      },
+                      itemCount: snapshot.data.docs.length,
+                      shrinkWrap: true,
+                    );
+                  } else {
+                    return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                      color: ColorsManager.primaryColor,
+                      size: 50,
+                    ));
+                  }
+                }),
+          ],
+        ),
       ),
     );
   }
@@ -118,84 +136,80 @@ class _ChatroomTileState extends State<ChatroomTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      child: TextButton(
-        style: TextButton.styleFrom(
-          foregroundColor: ColorsManager.secondaryColor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          backgroundColor: const Color.fromARGB(255, 226, 226, 226),
+    return TextButton(
+      style: TextButton.styleFrom(
+        foregroundColor: ColorsManager.secondaryColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        backgroundColor: const Color.fromARGB(255, 236, 236, 236),
+      ),
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ChatRoomPatient(
+                      patient: widget.patient,
+                      therapist: chatOponent,
+                      chatRoomId: widget.chatRoomId,
+                    )));
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
         ),
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ChatRoomPatient(
-                        patient: widget.patient,
-                        therapist: chatOponent,
-                        chatRoomId: widget.chatRoomId,
-                      )));
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: const EdgeInsets.all(4),
-          margin: const EdgeInsets.all(2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Stack(children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.asset(
-                          'assets/images/profile.png',
-                          height: 60,
-                          width: 60,
-                          fit: BoxFit.cover,
-                        )),
-                  ]),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        chatOponent.fullName,
-                        style: const TextStyle(
-                            color: ColorsManager.primaryColor, fontSize: 25),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        widget.lastMessage.length < 10
-                            ? widget.lastMessage
-                            : "${widget.lastMessage.substring(0, 10)}...",
-                        style: const TextStyle(
-                            fontSize: 17,
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w400,
-                            color: ColorsManager.primaryColor),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Text(
-                timeago.format(widget.dateSent.toDate()),
-                style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey,
-                    fontSize: 13),
-              )
-            ],
-          ),
+        padding: const EdgeInsets.all(2),
+        margin: const EdgeInsets.all(2),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Stack(children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset(
+                        'assets/images/profile.png',
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover,
+                      )),
+                ]),
+                const SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      chatOponent.fullName,
+                      style: const TextStyle(
+                          color: ColorsManager.primaryColor, fontSize: 20),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      widget.lastMessage.length < 10
+                          ? widget.lastMessage
+                          : "${widget.lastMessage.substring(0, 10)}...",
+                      style: const TextStyle(
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w400,
+                          color: ColorsManager.primaryColor),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Text(
+              timeago.format(widget.dateSent.toDate()),
+              style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                  fontSize: 13),
+            )
+          ],
         ),
       ),
     );

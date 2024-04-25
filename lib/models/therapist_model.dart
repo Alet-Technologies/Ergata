@@ -45,10 +45,10 @@ class MyTherapist extends Equatable {
 
   static final empty = MyTherapist(
     id: "",
-    fullName: "",
-    phone: "",
+    fullName: "Abebe Kebede",
+    phone: "09356725",
     photo: "",
-    category: "",
+    category: "Cardiology",
     description: "",
     license: "",
     price: 0,

@@ -122,10 +122,20 @@ class _ChatRoomState extends State<ChatRoomPatient> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios)),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.call,
+              color: Colors.white,
+            ),
+          ),
+        ],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

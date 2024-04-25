@@ -5,6 +5,7 @@ import 'package:ergata/constants/colors.dart';
 import 'package:ergata/models/therapist_model.dart';
 import 'package:ergata/screens/home/home_screen_therapist/chat_screen.dart';
 import 'package:ergata/screens/home/home_screen_therapist/home_screen.dart';
+import 'package:ergata/screens/home/home_screen_therapist/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomePageTherapist extends StatefulWidget {
@@ -26,6 +27,7 @@ class _HomePage extends State<HomePageTherapist> {
     screens = [
       HomeScreenTherapist(therapist: widget.therapist),
       ChatScreenTherapist(therapist: widget.therapist),
+      ProfileTherapist()
     ];
   }
 
