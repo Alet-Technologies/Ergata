@@ -18,6 +18,7 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
+        print(state);
         if (state is AuthenticationSuccessPatient) {
           Navigator.pushReplacement(
               context,
@@ -35,6 +36,8 @@ class _AppViewState extends State<AppView> {
         } else if (state is UnAuthenticated) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const LoginScreen()));
+        } else if (state is AuthenticationFailed) {
+          print("Error message: ${state.errorMesssage}");
         }
       },
       child: Scaffold(

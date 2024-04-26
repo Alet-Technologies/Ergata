@@ -1,6 +1,5 @@
 import 'package:ergata/components/appointment_preview.dart';
 import 'package:ergata/components/circle_avata.dart';
-import 'package:ergata/components/doctor_list_tile.dart';
 import 'package:ergata/components/section_title.dart';
 import 'package:ergata/constants/colors.dart';
 import 'package:ergata/constants/doctors_category.dart';
@@ -20,13 +19,13 @@ class HomeScreenTherapist extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: colorScheme,
           toolbarHeight: 80,
-          title: const Column(
+          title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Welcome to your Safe space',
-                style: TextStyle(color: Colors.white, fontSize: 16.0),
+                'Hello ${therapist.fullName}!',
+                style: const TextStyle(color: Colors.white, fontSize: 16.0),
               ),
             ],
           ),
@@ -43,36 +42,6 @@ class HomeScreenTherapist extends StatelessWidget {
             ),
             const SizedBox(width: 8.0),
           ],
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(64.0),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: 'Search for Therapist...',
-                  hintStyle: const TextStyle(color: Colors.white),
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                  border: InputBorder.none,
-                  suffixIcon: Container(
-                    margin: const EdgeInsets.all(4.0),
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      color: colorScheme,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: const Icon(
-                      Icons.filter_alt_outlined,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
         ),
         body: const SingleChildScrollView(
           padding: EdgeInsets.all(8.0),
@@ -152,7 +121,7 @@ class _NearbyDoctors extends StatelessWidget {
     return Column(
       children: [
         SectionTitle(
-          title: 'Recomended Therapist',
+          title: 'Your clients',
           action: 'See all',
           onPressed: () {},
         ),

@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ergata/models/patient_model.dart';
 import 'package:ergata/models/therapist_model.dart';
@@ -13,6 +14,9 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthRepository authRepository;
+  final patientsCollection = FirebaseFirestore.instance.collection("Patients");
+  final therapistCollection =
+      FirebaseFirestore.instance.collection("Therapists");
 
   AuthenticationBloc({required this.authRepository})
       : super(AuthenticationInitial()) {
@@ -21,8 +25,18 @@ class AuthenticationBloc
       try {
         final isSignedIn = FirebaseAuth.instance.currentUser;
         if (isSignedIn != null) {
-          MyPatient patient = await authRepository.getPatient(isSignedIn.uid);
-          emit(AuthenticationSuccessPatient(patient));
+          final patientFound =
+              await patientsCollection.doc(isSignedIn.uid).get();
+          final therapistFound =
+              await therapistCollection.doc(isSignedIn.uid).get();
+          if (patientFound.exists) {
+            MyPatient patient = await authRepository.getPatient(isSignedIn.uid);
+            emit(AuthenticationSuccessPatient(patient));
+          } else if (therapistFound.exists) {
+            MyTherapist therapist =
+                await authRepository.getTherapist(isSignedIn.uid);
+            emit(AuthenticationSuccessTherapist(therapist));
+          }
         } else {
           emit(UnAuthenticated());
         }

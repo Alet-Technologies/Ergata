@@ -4,6 +4,7 @@ import 'package:ergata/models/patient_model.dart';
 import 'package:ergata/models/therapist_model.dart';
 import 'package:ergata/repository/authentication.dart';
 import 'package:ergata/repository/chat.dart';
+import 'package:ergata/screens/chat/chatroom_therapist.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -60,7 +61,7 @@ class _ChatScreenState extends State<ChatScreenTherapist> {
                           chatRoomId: ds.id,
                           dateSent: ds["dateSent"],
                           lastMessage: ds['lastMessage'],
-                          patient: MyPatient.empty);
+                          therapist: widget.therapist);
                     },
                     itemCount: snapshot.data.docs.length,
                     shrinkWrap: true,
@@ -81,14 +82,14 @@ class _ChatScreenState extends State<ChatScreenTherapist> {
 
 class ChatroomTile extends StatefulWidget {
   final String lastMessage, chatRoomId;
-  final MyPatient patient;
+  final MyTherapist therapist;
   final Timestamp dateSent;
   const ChatroomTile(
       {super.key,
       required this.dateSent,
       required this.chatRoomId,
       required this.lastMessage,
-      required this.patient});
+      required this.therapist});
 
   @override
   State<ChatroomTile> createState() => _ChatroomTileState();
@@ -101,8 +102,9 @@ class _ChatroomTileState extends State<ChatroomTile> {
   String username = "";
 
   getthisuserInfo() async {
-    String opId =
-        widget.chatRoomId.replaceAll("_", "").replaceAll(widget.patient.id, "");
+    String opId = widget.chatRoomId
+        .replaceAll("_", "")
+        .replaceAll(widget.therapist.id, "");
     MyPatient chatUser = await authRepository.getPatient(opId);
     setState(() {
       chatOponent = chatUser;
@@ -117,18 +119,24 @@ class _ChatroomTileState extends State<ChatroomTile> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthRepository authRepository = AuthRepository();
-
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: TextButton(
         style: TextButton.styleFrom(
-          foregroundColor: Colors.pinkAccent.shade100,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          backgroundColor: Colors.grey[850],
+          foregroundColor: ColorsManager.primaryColor,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          backgroundColor: const Color.fromARGB(255, 236, 236, 236),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChatRoomTherapist(
+                        patient: chatOponent,
+                        therapist: widget.therapist,
+                        chatRoomId: widget.chatRoomId,
+                      )));
+        },
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -150,42 +158,6 @@ class _ChatroomTileState extends State<ChatroomTile> {
                           width: 60,
                           fit: BoxFit.cover,
                         )),
-                    chatOponent.id != ""
-                        ? StreamBuilder(
-                            stream: authRepository.patientsCollection
-                                .doc(chatOponent.id)
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.data != null) {
-                                return Positioned(
-                                  top: 38,
-                                  left: 38,
-                                  child: Icon(
-                                    Icons.circle,
-                                    color: snapshot.data!['isOnline'] == true
-                                        ? Colors.green
-                                        : Colors.red,
-                                  ),
-                                );
-                              } else {
-                                return const Positioned(
-                                  top: 38,
-                                  left: 38,
-                                  child: Icon(
-                                    Icons.circle,
-                                    color: Colors.amber,
-                                  ),
-                                );
-                              }
-                            })
-                        : const Positioned(
-                            top: 38,
-                            left: 38,
-                            child: Icon(
-                              Icons.circle,
-                              color: Colors.transparent,
-                            ),
-                          )
                   ]),
                   const SizedBox(
                     width: 15,
@@ -194,8 +166,9 @@ class _ChatroomTileState extends State<ChatroomTile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Patient",
-                        style: TextStyle(color: Colors.white, fontSize: 25),
+                        "Anonymous",
+                        style: TextStyle(
+                            color: ColorsManager.primaryColor, fontSize: 25),
                       ),
                       const SizedBox(
                         height: 5,
@@ -204,11 +177,11 @@ class _ChatroomTileState extends State<ChatroomTile> {
                         widget.lastMessage.length < 10
                             ? widget.lastMessage
                             : "${widget.lastMessage.substring(0, 10)}...",
-                        style: TextStyle(
-                            fontSize: 17,
+                        style: const TextStyle(
+                            fontSize: 15,
                             fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.grey.shade100),
+                            fontWeight: FontWeight.w400,
+                            color: ColorsManager.primaryColor),
                       ),
                     ],
                   ),

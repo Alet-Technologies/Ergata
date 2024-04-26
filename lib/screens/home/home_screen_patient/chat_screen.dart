@@ -136,80 +136,83 @@ class _ChatroomTileState extends State<ChatroomTile> {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        foregroundColor: ColorsManager.secondaryColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        backgroundColor: const Color.fromARGB(255, 236, 236, 236),
-      ),
-      onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ChatRoomPatient(
-                      patient: widget.patient,
-                      therapist: chatOponent,
-                      chatRoomId: widget.chatRoomId,
-                    )));
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          foregroundColor: ColorsManager.primaryColor,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          backgroundColor: const Color.fromARGB(255, 236, 236, 236),
         ),
-        padding: const EdgeInsets.all(2),
-        margin: const EdgeInsets.all(2),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Stack(children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.asset(
-                        'assets/images/profile.png',
-                        height: 40,
-                        width: 40,
-                        fit: BoxFit.cover,
-                      )),
-                ]),
-                const SizedBox(
-                  width: 20,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      chatOponent.fullName,
-                      style: const TextStyle(
-                          color: ColorsManager.primaryColor, fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      widget.lastMessage.length < 10
-                          ? widget.lastMessage
-                          : "${widget.lastMessage.substring(0, 10)}...",
-                      style: const TextStyle(
-                          fontSize: 15,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w400,
-                          color: ColorsManager.primaryColor),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Text(
-              timeago.format(widget.dateSent.toDate()),
-              style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey,
-                  fontSize: 13),
-            )
-          ],
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChatRoomPatient(
+                        patient: widget.patient,
+                        therapist: chatOponent,
+                        chatRoomId: widget.chatRoomId,
+                      )));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: const EdgeInsets.all(2),
+          margin: const EdgeInsets.all(1),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Stack(children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.network(
+                          chatOponent.photo,
+                          height: 50,
+                          width: 50,
+                          fit: BoxFit.cover,
+                        )),
+                  ]),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        chatOponent.fullName,
+                        style: const TextStyle(
+                            color: ColorsManager.primaryColor, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        widget.lastMessage.length < 10
+                            ? widget.lastMessage
+                            : "${widget.lastMessage.substring(0, 10)}...",
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w400,
+                            color: ColorsManager.primaryColor),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Text(
+                timeago.format(widget.dateSent.toDate()),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey,
+                    fontSize: 13),
+              )
+            ],
+          ),
         ),
       ),
     );

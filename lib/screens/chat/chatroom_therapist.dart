@@ -4,7 +4,6 @@ import 'package:ergata/models/patient_model.dart';
 import 'package:ergata/models/therapist_model.dart';
 import 'package:ergata/repository/authentication.dart';
 import 'package:ergata/repository/chat.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

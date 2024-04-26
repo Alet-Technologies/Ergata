@@ -3,6 +3,7 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:ergata/constants/colors.dart';
 import 'package:ergata/models/therapist_model.dart';
+import 'package:ergata/screens/home/home_screen_patient/venting_screen.dart';
 import 'package:ergata/screens/home/home_screen_therapist/chat_screen.dart';
 import 'package:ergata/screens/home/home_screen_therapist/home_screen.dart';
 import 'package:ergata/screens/home/home_screen_therapist/profile_screen.dart';
@@ -27,7 +28,8 @@ class _HomePage extends State<HomePageTherapist> {
     screens = [
       HomeScreenTherapist(therapist: widget.therapist),
       ChatScreenTherapist(therapist: widget.therapist),
-      ProfileTherapist()
+      VentingScreen(),
+      ProfileTherapist(therapist: widget.therapist)
     ];
   }
 
@@ -51,6 +53,14 @@ class _HomePage extends State<HomePageTherapist> {
                     unselectedColor: ColorsManager.secondaryColor),
                 DotNavigationBarItem(
                     icon: const Icon(Icons.chat),
+                    selectedColor: ColorsManager.primaryColor,
+                    unselectedColor: ColorsManager.secondaryColor),
+                DotNavigationBarItem(
+                    icon: const Icon(Icons.group_outlined),
+                    selectedColor: ColorsManager.primaryColor,
+                    unselectedColor: ColorsManager.secondaryColor),
+                DotNavigationBarItem(
+                    icon: const Icon(Icons.person_outline),
                     selectedColor: ColorsManager.primaryColor,
                     unselectedColor: ColorsManager.secondaryColor),
               ]),

@@ -1,6 +1,9 @@
+import 'package:ergata/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:ergata/constants/colors.dart';
 import 'package:ergata/models/patient_model.dart';
+import 'package:ergata/screens/signIn/loginpage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePatient extends StatelessWidget {
   const ProfilePatient({super.key, required this.patient});
@@ -45,10 +48,6 @@ class ProfilePatient extends StatelessWidget {
                 )
               ],
             ),
-            // const Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [Text("@peakyBlinders")],
-            // ),
             const SizedBox(
               height: 15,
             ),
@@ -57,7 +56,7 @@ class ProfilePatient extends StatelessWidget {
               children: [
                 Text(
                   "Diagnosed with: ${patient.diagnosedWith}",
-                  style: TextStyle(fontSize: 15),
+                  style: const TextStyle(fontSize: 15),
                 )
               ],
             ),
@@ -157,27 +156,43 @@ class ProfilePatient extends StatelessWidget {
                     ),
                   ),
                 ),
-                Card(
-                  elevation: 1,
-                  shadowColor: ColorsManager.primaryColor,
-                  color: Colors.white,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  child: const ListTile(
-                    leading: Icon(
-                      Icons.logout,
-                      color: Colors.black54,
+                BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                    listener: (context, state) {
+                  if (state is UnAuthenticated) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
+                  }
+                }, builder: (context, state) {
+                  return GestureDetector(
+                    onTap: () {
+                      BlocProvider.of<AuthenticationBloc>(context)
+                          .add(SignOut());
+                    },
+                    child: Card(
+                      elevation: 1,
+                      shadowColor: ColorsManager.primaryColor,
+                      color: Colors.white,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const ListTile(
+                        leading: Icon(
+                          Icons.logout,
+                          color: Colors.black54,
+                        ),
+                        title: Text(
+                          'Logout',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Icon(Icons.arrow_forward_ios_outlined),
+                      ),
                     ),
-                    title: Text(
-                      'Logout',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    trailing: Icon(Icons.arrow_forward_ios_outlined),
-                  ),
-                )
+                  );
+                })
               ],
             ))
           ],
